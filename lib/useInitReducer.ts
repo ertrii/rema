@@ -1,21 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { RemaKeyName, RemaProviderContext, RemaReducer } from "./contexts";
-import useEmit from "./useEmit";
 import useRenderChild from "./useRenderChild";
+import useDispatch from "./useDispatch";
 
 export interface UseInitReducerOptions {
   persist?: boolean;
 }
 
-export default function useInitReducer<T>(
+export default function useInitReducer<T, A = Record<string, any>>(
   keyName: RemaKeyName,
-  reducer: RemaReducer<T>,
+  reducer: RemaReducer<T, A>,
   initialState: T,
   options: UseInitReducerOptions = {}
 ) {
   const [, forceRender] = useState({});
-  const emit = useEmit<T>(keyName);
+  const dispatch = useDispatch<A>(keyName);
   const context = useContext(RemaProviderContext);
   const renderChild = useRenderChild(keyName);
 
@@ -39,14 +40,17 @@ export default function useInitReducer<T>(
    * Initialize the state
    */
   useEffect(() => {
-    const nextStates = options.persist
-      ? context.getState(keyName)
-      : initialState;
-    context.saveState(keyName, nextStates);
+    context.saveState(keyName, context.getState(keyName) || initialState);
     renderChild();
+
+    return () => {
+      if (options?.persist) return;
+      context.saveState(keyName, initialState);
+      renderChild();
+    };
   }, []);
 
   const values = context.getState(keyName) as T;
 
-  return [values || initialState, emit] as const;
+  return [values || initialState, dispatch] as const;
 }

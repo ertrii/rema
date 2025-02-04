@@ -6,6 +6,8 @@ import RemaProvider from "./remaProvider";
 import useInitReducer from "./useInitReducer";
 import useDispatch from "./useDispatch";
 
+export type { RemaAction, RemaReducer } from "./contexts";
+
 export {
   useCurrentState,
   useEmit,

@@ -13,7 +13,8 @@ export interface RemaComponentMetadata<T> {
 }
 
 export type RemaValues<T = any> = Record<RemaKeyName, T>;
-export type RemaReducer<T = any, A = any> = (state: T, action: A) => T;
+export type RemaAction<T extends string, P = any> = { type: T; payload?: P };
+export type RemaReducer<S = any, A = null> = (state: S, action: A) => S;
 
 export interface RemaProviderProps<T = any> {
   saveState: (key: string, value: T) => void;

@@ -37,11 +37,14 @@ export default function useInit<T>(
   }, []);
 
   useEffect(() => {
-    const nextStates = options.persist
-      ? context.getState(keyName)
-      : initialState;
-    context.saveState(keyName, nextStates || initialState);
+    context.saveState(keyName, context.getState(keyName) || initialState);
     renderChild();
+
+    return () => {
+      if (options?.persist) return;
+      context.saveState(keyName, initialState);
+      renderChild();
+    };
   }, []);
 
   const values = context.getState(keyName) as T;

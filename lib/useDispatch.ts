@@ -3,9 +3,7 @@ import { useContext } from "react";
 import { RemaKeyName, RemaProviderContext } from "./contexts";
 import useRenderChild from "./useRenderChild";
 
-export default function useDispatch<
-  A extends Record<string, any> = { type: string }
->(keyName: RemaKeyName) {
+export default function useDispatch<A>(keyName: RemaKeyName) {
   const context = useContext(RemaProviderContext);
   const renderChild = useRenderChild(keyName);
   return function dispatch(action: A) {

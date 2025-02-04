@@ -1,4 +1,4 @@
-import { useInit } from "../../lib";
+import { useInit } from "../../../lib";
 
 export default function Content1() {
   const [states, setStates] = useInit("content1", { count: 0 });

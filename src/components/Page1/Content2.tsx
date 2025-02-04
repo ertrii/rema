@@ -1,4 +1,4 @@
-import { useEmit, useListen } from "../../lib";
+import { useEmit, useListen } from "../../../lib";
 
 export default function Content2() {
   const emit = useEmit<{ count: number }>("content1");
