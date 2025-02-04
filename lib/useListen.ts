@@ -1,8 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Context, useContext, useEffect, useId, useState } from "react";
 import { RemaProviderContext, RemaProviderProps } from "./contexts";
 
+/**
+ * Listens to a keyName and returns the current state
+ * @param keyName
+ * @param fallback
+ */
 export default function useListen<T>(keyName: string, fallback?: T) {
   const [, forceRender] = useState({});
   const id = useId();

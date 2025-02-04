@@ -1,8 +1,11 @@
 import { useContext } from "react";
-import { RemaProviderContext } from "./contexts";
+import { RemaKeyName, RemaProviderContext } from "./contexts";
 import useRenderChild from "./useRenderChild";
 
-export default function useEmit<T>(keyName: string) {
+/**
+ * Returns a function that can be used to emit a new value to the keyName
+ */
+export default function useEmit<T>(keyName: RemaKeyName) {
   const context = useContext(RemaProviderContext);
   const renderChild = useRenderChild(keyName);
 
