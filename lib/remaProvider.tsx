@@ -43,6 +43,10 @@ export default function RemaProvider({ children }: RemaProviderProps) {
     return subscribes.current[keyName].options;
   }
 
+  function getSubscribe<R>(keyName: RemaKeyName) {
+    return (subscribes.current[keyName] as RemaComponentMetadata<R>) || null;
+  }
+
   return (
     <RemaProviderContext.Provider
       value={{
@@ -53,6 +57,7 @@ export default function RemaProvider({ children }: RemaProviderProps) {
         subscribeComponent: subscribe,
         unsubscribeComponent: unsubscribe,
         subscribes: subscribes.current,
+        getSubscribe,
         getOptions,
         render,
       }}

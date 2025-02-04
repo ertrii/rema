@@ -5,9 +5,7 @@ export default function Content2() {
   const { count } = useListen("content1", { count: 0 });
 
   function handleClick() {
-    emit((prev) => ({
-      count: prev.count + 1,
-    }));
+    emit({ count: count + 1 });
   }
 
   return (

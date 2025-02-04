@@ -1,34 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
-import { RemaKeyName, RemaProviderContext } from "./contexts";
-import useRenderChild from "./useRenderChild";
+import { RemaKeyName, RemaProviderContext, RemaReducer } from "./contexts";
 import useEmit from "./useEmit";
+import useRenderChild from "./useRenderChild";
 
-export interface UseInitOptions {
+export interface UseInitReducerOptions {
   persist?: boolean;
 }
 
-/**
- * Initializes a keyName with an initial value
- * @param keyName
- * @param initialState
- * @param options
- */
-export default function useInit<T>(
+export default function useInitReducer<T>(
   keyName: RemaKeyName,
+  reducer: RemaReducer<T>,
   initialState: T,
-  options: UseInitOptions = {}
+  options: UseInitReducerOptions = {}
 ) {
   const [, forceRender] = useState({});
   const emit = useEmit<T>(keyName);
   const context = useContext(RemaProviderContext);
   const renderChild = useRenderChild(keyName);
 
+  /**
+   * Subscribe component to the context
+   */
   useEffect(() => {
     context.subscribeComponent(keyName, {
       keyName,
-      initialState: initialState,
+      initialState,
       listener: () => forceRender({}),
+      reducer,
       options: {
         persist: options.persist || false,
       },
@@ -36,11 +35,14 @@ export default function useInit<T>(
     return () => context.unsubscribeComponent(keyName);
   }, []);
 
+  /**
+   * Initialize the state
+   */
   useEffect(() => {
     const nextStates = options.persist
       ? context.getState(keyName)
       : initialState;
-    context.saveState(keyName, nextStates || initialState);
+    context.saveState(keyName, nextStates);
     renderChild();
   }, []);
 

@@ -5,6 +5,7 @@ export type RemaKeyName = string;
 export interface RemaComponentMetadata<T> {
   keyName: RemaKeyName;
   initialState: T;
+  reducer?: RemaReducer<T>;
   listener: () => void;
   options: {
     persist: boolean;
@@ -12,6 +13,7 @@ export interface RemaComponentMetadata<T> {
 }
 
 export type RemaValues<T = any> = Record<RemaKeyName, T>;
+export type RemaReducer<T = any, A = any> = (state: T, action: A) => T;
 
 export interface RemaProviderProps<T = any> {
   saveState: (key: string, value: T) => void;
@@ -27,6 +29,7 @@ export interface RemaProviderProps<T = any> {
   getOptions: (
     keyName: RemaKeyName
   ) => RemaComponentMetadata<T>["options"] | null;
+  getSubscribe: <R>(keyName: RemaKeyName) => RemaComponentMetadata<R> | null;
   render: (keyName: RemaKeyName) => void;
 }
 
@@ -39,5 +42,6 @@ export const RemaProviderContext = createContext<RemaProviderProps>({
   unsubscribeComponent: () => {},
   subscribes: {},
   getOptions: () => null,
+  getSubscribe: () => null,
   render: () => {},
 });

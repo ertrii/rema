@@ -4,9 +4,7 @@ export default function Content1() {
   const [states, setStates] = useInit("content1", { count: 0 });
 
   function handleClick() {
-    setStates((prev) => ({
-      count: prev.count + 1,
-    }));
+    setStates({ count: states.count + 1 });
   }
 
   return (
