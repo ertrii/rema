@@ -1,22 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from "react";
-import { RemaProviderContext } from "./contexts";
-import { RemaComponentMetadata, RemaKeyName } from "./types";
+import {
+  RemaComponentMetadata,
+  RemaKeyName,
+  RemaProviderContext,
+} from "./contexts";
 
 export interface RemaProviderProps {
   children: React.ReactNode;
-  initialValue: Record<string, Record<string, any>>;
 }
 
-export default function RemaProvider({
-  children,
-  initialValue,
-}: RemaProviderProps) {
-  const values = useRef(initialValue);
+export default function RemaProvider({ children }: RemaProviderProps) {
+  const values = useRef<Record<RemaKeyName, Record<string, any>>>({});
   const subscribes = useRef<Record<string, any>>({});
 
   function saveState(keyName: RemaKeyName, value: any) {
     values.current[keyName] = value;
+  }
+
+  function exists(keyName: RemaKeyName) {
+    return keyName in values.current;
   }
 
   function subscribe(
@@ -35,15 +38,22 @@ export default function RemaProvider({
     subscribes.current[keyName].listener();
   }
 
+  function getOptions(keyName: RemaKeyName) {
+    if (!exists(keyName)) return null;
+    return subscribes.current[keyName].options;
+  }
+
   return (
     <RemaProviderContext.Provider
       value={{
         saveState,
-        states: values.current,
-        getValues: (keyName) => values.current[keyName],
-        exists: (keyName) => keyName in values.current,
+        getState: (keyName) => values.current[keyName],
+        values: values.current,
+        exists,
         subscribeComponent: subscribe,
         unsubscribeComponent: unsubscribe,
+        subscribes: subscribes.current,
+        getOptions,
         render,
       }}
     >

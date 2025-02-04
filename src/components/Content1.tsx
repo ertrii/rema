@@ -5,7 +5,7 @@ export default function Content1() {
 
   return (
     <div style={{ width: "100%", border: "1px solid black", padding: "20px" }}>
-      <h2>Content 1</h2>
+      <h2>Content 1+</h2>
       <p>{count}</p>
     </div>
   );
