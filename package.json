@@ -2,8 +2,9 @@
   "name": "rema",
   "description": "Transfers state from one component to another and manipulates their values.",
   "private": false,
-  "version": "1.0.0-alpha.1",
-  "main": "./dist/index.js",
+  "version": "1.0.0-alpha.1.1",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -14,8 +15,7 @@
   "type": "module",
   "homepage": "https://github.com/ertrii/rema.git",
   "repository": "https://github.com/ertrii/rema.git",
-  "bugs": "https://github.com/ertrii/rema.git/issues",
-  "types": "./types/index.d.ts",
+  "bugs": "https://github.com/ertrii/rema.git/issues",  
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
