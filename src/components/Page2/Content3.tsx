@@ -1,4 +1,4 @@
-import { useInitReducer } from "../../../lib";
+import { useInitReducer } from "../../lib";
 
 export interface Content3State {
   color: string;

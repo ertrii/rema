@@ -1,4 +1,4 @@
-import { useDispatch, useListen } from "../../../lib";
+import { useDispatch, useListen } from "../../lib";
 import { Content3Action, Content3State } from "./Content3";
 
 export default function Content4() {

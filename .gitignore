@@ -27,3 +27,5 @@ dist-ssr
 build
 dist
 types
+lib/
+!src/lib

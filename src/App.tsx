@@ -1,4 +1,4 @@
-import { RemaProvider } from "../lib";
+import { RemaProvider } from "./lib";
 import Container from "./components/Container";
 import Content1 from "./components/Page1/Content1";
 import Content2 from "./components/Page1/Content2";
