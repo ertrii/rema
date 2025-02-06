@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "module": "CommonJS",
+        "target": "es2018",
+        "lib": ["es2019"],
+        "noImplicitAny": true,
+        "declaration": true,
+        "declarationDir": "./types",
+        "allowJs": true,
+        "jsx": "react-jsx",
+        "preserveConstEnums": true,
+        "outDir": "./dist",
+        "sourceMap": false,
+        "skipLibCheck": true,
+        "baseUrl": "./",
+        "strict": true,
+        "esModuleInterop": true,
+        "disableReferencedProjectLoad": true,
+    },
+    "include": ["./lib/*.ts"],
+    "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.*", "./dist/**/*", "./src", "./types"]
+}
