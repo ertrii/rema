@@ -5,7 +5,10 @@ import useRenderChild from "./useRenderChild";
 /**
  * Returns a function that can be used to emit a new value to the keyName
  */
-export default function useEmit<T>(keyName: RemaKeyName) {
+export default function useEmit<T>(
+  keyName: RemaKeyName,
+  onlyRenderThis = false
+) {
   const context = useContext(RemaProviderContext);
   const renderChild = useRenderChild(keyName);
 
@@ -19,6 +22,7 @@ export default function useEmit<T>(keyName: RemaKeyName) {
       context.saveState(keyName, value);
     }
     context.render(keyName);
+    if (onlyRenderThis) return;
     renderChild();
   };
 }
