@@ -107,3 +107,24 @@ function OtherComponet() {
   );
 }
 ```
+
+## Unsubscribe states
+
+Resets the state when the component is unmounted
+
+```tsx
+function ParentComponent{
+  useUnsubscribe("MAIN_COMPONENT")
+  return <>{/*...*/}</>
+}
+```
+
+## useReserve
+
+Replaces the initial state that the parent component initializes.
+
+```tsx
+const emit = useReserve("MAIN_COMPONENT");
+
+<button onClick={() => emit({ count: 7 })}>Prev states</button>;
+```
