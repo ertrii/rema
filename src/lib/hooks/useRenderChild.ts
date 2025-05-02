@@ -9,10 +9,11 @@ export default function useRenderChild(keyName: RemaKeyName) {
 
   return useCallback(
     function () {
-      const keysComponent = Object.keys(context.suscriptions.current).filter(
-        (key) => key.includes(`${keyName}-`)
-      );
-      keysComponent.forEach((key) => context.render(key));
+      Object.keys(context.suscriptions.current).forEach((key) => {
+        if (key.includes(`${keyName}-`)) {
+          context.render(key);
+        }
+      });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
