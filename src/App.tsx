@@ -5,8 +5,11 @@ import Content2 from "./components/Page1/Content2";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Content3 from "./components/Page2/Content3";
 import Content4 from "./components/Page2/Content4";
+import { useState } from "react";
 
 function App() {
+  const [mount, setMount] = useState(true);
+
   return (
     <RemaProvider>
       <BrowserRouter>
@@ -18,13 +21,18 @@ function App() {
             <li>
               <Link to="/other">Other</Link>
             </li>
+            <li>
+              <button onClick={() => setMount(!mount)}>
+                {mount ? "Desmontar" : "Montar"}
+              </button>
+            </li>
           </ul>
           <Routes>
             <Route
               index
               element={
                 <div style={{ display: "flex", gap: "1em", width: "100%" }}>
-                  <Content1 />
+                  {mount && <Content1 />}
                   <Content2 />
                 </div>
               }

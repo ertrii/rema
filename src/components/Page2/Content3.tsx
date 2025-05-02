@@ -1,4 +1,5 @@
-import { useInitReducer } from "../../lib";
+import { useEmit, useInitReducer } from "../../lib";
+import { Content1States } from "../Page1/Content1";
 
 export interface Content3State {
   color: string;
@@ -23,6 +24,11 @@ export default function Content3() {
   const [state, dispatch] = useInitReducer("content3", reducer, {
     color: "black",
   });
+  const content1 = useEmit<Content1States>("content1");
+  function updatePage1() {
+    content1({ count: 5 });
+  }
+
   return (
     <div style={{ width: "100%", border: "1px solid black", padding: "20px" }}>
       <h2>Content 3</h2>
@@ -30,6 +36,7 @@ export default function Content3() {
       <button onClick={() => dispatch({ type: "RESET_COLOR" })}>
         Resetear
       </button>
+      <button onClick={updatePage1}>Change number for page 1</button>
     </div>
   );
 }

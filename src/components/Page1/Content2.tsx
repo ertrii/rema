@@ -1,7 +1,8 @@
 import { useEmit, useListen } from "../../lib";
+import { Content1States } from "./Content1";
 
 export default function Content2() {
-  const emit = useEmit<{ count: number }>("content1");
+  const emit = useEmit<Content1States>("content1");
   const { count } = useListen("content1", { count: 0 });
 
   function handleClick() {

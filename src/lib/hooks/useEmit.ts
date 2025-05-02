@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { RemaKeyName, RemaProviderContext } from "./contexts";
+import { useCallback, useContext } from "react";
+import { RemaKeyName, RemaProviderContext } from "../contexts";
 import useRenderChild from "./useRenderChild";
 
 /**
@@ -11,18 +11,17 @@ export default function useEmit<T>(
 ) {
   const context = useContext(RemaProviderContext);
   const renderChild = useRenderChild(keyName);
-
-  return function emit(value: ((prev: T) => T) | T) {
+  return useCallback(function emit(value: ((prev: T) => T) | T) {
     if (typeof value === "function") {
-      const nextValues = (value as (prev: T) => T)(
-        context.getState(keyName) as T
-      );
-      context.saveState(keyName, nextValues);
+      const fn = value as (prev: T) => T;
+      const nextValues = fn(context.values.current[keyName] as T);
+      context.saveValues(keyName, nextValues);
     } else {
-      context.saveState(keyName, value);
+      context.saveValues(keyName, value);
     }
     context.render(keyName);
     if (onlyRenderThis) return;
     renderChild();
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
