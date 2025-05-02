@@ -4,7 +4,7 @@ import {
   RemaComponentMetadata,
   RemaKeyName,
   RemaProviderContext,
-} from "./contexts";
+} from "./RemaProviderContext";
 
 export interface RemaProviderProps {
   children: React.ReactNode;
@@ -12,6 +12,7 @@ export interface RemaProviderProps {
 
 export default function RemaProvider({ children }: RemaProviderProps) {
   const values = useRef<Record<RemaKeyName, Record<string, any>>>({});
+  const reservations = useRef<Record<RemaKeyName, Record<string, any>>>({});
   const suscriptions = useRef<Record<string, any>>({});
 
   function saveValues(keyName: RemaKeyName, value: any) {
@@ -38,6 +39,17 @@ export default function RemaProvider({ children }: RemaProviderProps) {
     suscriptions.current[keyName].listener();
   }
 
+  function hasReservation(keyName: string) {
+    return keyName in reservations.current;
+  }
+  function deleteReservation(keyName: string) {
+    if (hasReservation(keyName)) {
+      delete reservations.current[keyName];
+      return true;
+    }
+    return false;
+  }
+
   return (
     <RemaProviderContext.Provider
       value={{
@@ -48,6 +60,9 @@ export default function RemaProvider({ children }: RemaProviderProps) {
         unsubscribe,
         suscriptions,
         render,
+        reservations,
+        hasReservation,
+        deleteReservation,
       }}
     >
       {children}

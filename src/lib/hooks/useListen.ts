@@ -1,6 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useId, useLayoutEffect, useState } from "react";
-import { RemaProviderContext, RemaProviderProps } from "../contexts";
+import {
+  RemaProviderContext,
+  RemaProviderProps,
+} from "../contexts/RemaProviderContext";
 
 /**
  * Listens to a keyName and returns the current state

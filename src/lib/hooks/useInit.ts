@@ -1,6 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useLayoutEffect, useState } from "react";
-import { RemaKeyName, RemaProviderContext } from "../contexts";
+import {
+  RemaKeyName,
+  RemaProviderContext,
+} from "../contexts/RemaProviderContext";
 import useRenderChild from "./useRenderChild";
 import useEmit from "./useEmit";
 
@@ -23,14 +26,20 @@ export default function useInit<T>(keyName: RemaKeyName, initialState: T) {
     context.saveValues(keyName, initialState);
   }
   useLayoutEffect(() => {
+    if (context.hasReservation(keyName)) {
+      context.saveValues(keyName, context.reservations.current[keyName]);
+      context.deleteReservation(keyName);
+      forceRender({});
+    }
+  }, []);
+
+  useEffect(() => {
     context.subscribe(keyName, {
       keyName,
       listener: () => forceRender({}),
     });
-    return () => context.unsubscribe(keyName);
+    renderChild();
   }, []);
-
-  useEffect(() => renderChild(), []);
 
   const values = context.values.current[keyName] as T;
   return [values, emit] as const;

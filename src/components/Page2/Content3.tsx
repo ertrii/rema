@@ -1,4 +1,4 @@
-import { useEmit, useInitReducer } from "../../lib";
+import { useInitReducer, useReserve } from "../../lib";
 import { Content1States } from "../Page1/Content1";
 
 export interface Content3State {
@@ -24,9 +24,9 @@ export default function Content3() {
   const [state, dispatch] = useInitReducer("content3", reducer, {
     color: "black",
   });
-  const content1 = useEmit<Content1States>("content1");
+  const content1 = useReserve<Content1States>("content1");
   function updatePage1() {
-    content1({ count: 5 });
+    content1({ count: 7 });
   }
 
   return (

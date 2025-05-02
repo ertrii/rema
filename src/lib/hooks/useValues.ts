@@ -1,5 +1,8 @@
 import { useContext } from "react";
-import { RemaKeyName, RemaProviderContext } from "../contexts";
+import {
+  RemaKeyName,
+  RemaProviderContext,
+} from "../contexts/RemaProviderContext";
 
 /**
  * Returns the current state of the keyName

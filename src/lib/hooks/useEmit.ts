@@ -1,5 +1,8 @@
 import { useCallback, useContext } from "react";
-import { RemaKeyName, RemaProviderContext } from "../contexts";
+import {
+  RemaKeyName,
+  RemaProviderContext,
+} from "../contexts/RemaProviderContext";
 import useRenderChild from "./useRenderChild";
 
 /**
@@ -11,7 +14,7 @@ export default function useEmit<T>(
 ) {
   const context = useContext(RemaProviderContext);
   const renderChild = useRenderChild(keyName);
-  return useCallback(function emit(value: ((prev: T) => T) | T) {
+  return useCallback(function (value: ((prev: T) => T) | T) {
     if (typeof value === "function") {
       const fn = value as (prev: T) => T;
       const nextValues = fn(context.values.current[keyName] as T);

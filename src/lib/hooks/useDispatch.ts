@@ -1,5 +1,8 @@
 import { useCallback, useContext } from "react";
-import { RemaKeyName, RemaProviderContext } from "../contexts";
+import {
+  RemaKeyName,
+  RemaProviderContext,
+} from "../contexts/RemaProviderContext";
 import useRenderChild from "./useRenderChild";
 
 export default function useDispatch<A>(

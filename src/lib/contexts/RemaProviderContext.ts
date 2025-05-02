@@ -15,7 +15,10 @@ export type RemaReducer<S = any, A = any> = (state: S, action: A) => S;
 export interface RemaProviderProps<T = any> {
   saveValues: (key: string, value: T) => void;
   values: MutableRefObject<Record<RemaKeyName, RemaValues<T>>>;
+  reservations: MutableRefObject<Record<RemaKeyName, RemaValues<T>>>;
   exists: (keyName: RemaKeyName) => boolean;
+  hasReservation: (keyName: RemaKeyName) => boolean;
+  deleteReservation: (keyName: RemaKeyName) => boolean;
   subscribe: (
     keyName: RemaKeyName,
     metadata: RemaComponentMetadata<any>
@@ -31,9 +34,11 @@ export const RemaProviderContext = createContext<RemaProviderProps>({
   saveValues: () => {},
   values: { current: {} },
   exists: () => false,
+  reservations: { current: {} },
+  hasReservation: () => false,
+  deleteReservation: () => false,
   subscribe: () => {},
   unsubscribe: () => {},
   suscriptions: { current: {} },
-
   render: () => {},
 });

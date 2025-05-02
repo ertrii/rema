@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { RemaProviderContext } from "../contexts";
+import { RemaProviderContext } from "../contexts/RemaProviderContext";
 
 /**
  * Anula la suscripción del estado inicial al desmontar este componente.

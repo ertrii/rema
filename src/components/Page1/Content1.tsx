@@ -18,7 +18,7 @@ export default function Content1() {
     <div style={{ width: "100%", border: "1px solid black", padding: "20px" }}>
       <h2>Content 1+</h2>
       <p>{states.count}</p>
-      <button onClick={handleClick}>Contar</button>
+      <button onClick={handleClick}>Contar ++</button>
       <button onClick={() => render({})}>UP</button>
     </div>
   );
