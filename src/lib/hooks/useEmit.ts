@@ -8,10 +8,7 @@ import useRenderChild from "./useRenderChild";
 /**
  * Returns a function that can be used to emit a new value to the keyName
  */
-export default function useEmit<T>(
-  keyName: RemaKeyName,
-  onlyRenderThis = false
-) {
+export default function useEmit<T>(keyName: RemaKeyName) {
   const context = useContext(RemaProviderContext);
   const renderChild = useRenderChild(keyName);
   return useCallback(function (value: ((prev: T) => T) | T) {
@@ -22,9 +19,8 @@ export default function useEmit<T>(
     } else {
       context.saveValues(keyName, value);
     }
-    context.render(keyName);
-    if (onlyRenderThis) return;
     renderChild();
+    context.render(keyName);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

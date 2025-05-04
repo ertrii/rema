@@ -3,7 +3,7 @@
   "npmName": "rema",
   "description": "Transfers state from one component to another and manipulates their values.",
   "private": false,
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.2.1",
   "main": "lib/index.js",
   "types": "./types/index.d.ts",  
   "type": "module",

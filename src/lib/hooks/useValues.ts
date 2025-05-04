@@ -12,5 +12,5 @@ import {
 export default function useValues<T>(keyName: RemaKeyName, fallback?: T) {
   const context = useContext(RemaProviderContext);
   const values = context.values.current[keyName] as T;
-  return values || fallback;
+  return values || (fallback as T);
 }
